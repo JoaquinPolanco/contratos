@@ -19,5 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/contratos', 'ContratoController@index')->name('contratos.index');
+Route::get('/contratos/paginate', 'ContratoController@paginate')->name('contratos.paginate');
+
 
 Route::resource('contratos', ContratoController::class);

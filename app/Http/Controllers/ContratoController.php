@@ -16,8 +16,7 @@ class ContratoController extends Controller
 
     public function index()
     {
-        $contratos = Contract::all(); 
-
+        $contratos = Contract::paginate(50);
         return view('contratos.index', compact('contratos'));
     }
 
@@ -64,5 +63,12 @@ class ContratoController extends Controller
     
         return redirect()->route('contratos.index')->with('success', 'Contrato creado exitosamente');
     }
+
+    public function paginate()
+    {
+        $contratos = Contract::paginate(50);
+        return view('contratos.paginate', compact('contratos'));
+    }
+
     
 }
