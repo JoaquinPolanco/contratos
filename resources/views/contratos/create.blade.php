@@ -59,7 +59,7 @@
                                     <label for="service_id">Servicio:</label>
                                     <select name="service_id" class="form-control" required>
                                         @foreach($services as $service)
-                                            <option value="{{ $service->id }}">{{ $service->id}}</option>
+                                            <option value="{{ $service->id }}">{{ $service->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
