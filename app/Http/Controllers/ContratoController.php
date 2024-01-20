@@ -8,13 +8,14 @@ use App\Models\Location;
 use App\Models\ClientContract;
 use App\Models\ContractService;
 use App\Models\CategoriesService;
+use App\Models\Cliente;
 
 class ContratoController extends Controller
 {
     
     public function index()
     {
-        $contratos = Contract::paginate(50);
+        $contratos = Contract::with('client', 'services')->paginate(50);
         return view('contratos.index', compact('contratos'));
     }
 
@@ -93,6 +94,11 @@ class ContratoController extends Controller
         return redirect()->route('contratos.index')->with('success', 'Contrato actualizado exitosamente');
     }
     
+
+public function client()
+{
+    return $this->belongsTo(Cliente::class, 'user_id');
+}
 
     
 }

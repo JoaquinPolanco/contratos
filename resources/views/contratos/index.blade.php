@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contratos</title>
+    <title>SHIFT AND CONTROL</title>
+    <link rel="icon" href="{{ asset('img/fb.jpg') }}" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
     <div class="container mt-4">
-        <h1>Contratos</h1>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <img src="img/fb.jpg" alt="Logo" style="width: 50px; height: 50px; margin-right: 15px;">
+        <h1 style="margin-left: 15px;">SHIFT AND CONTROL</h1>
+    </div>
+     
+    <h1>Contratos</h1>
         <a href="{{ route('contratos.create') }}" class="btn btn-primary mb-3">Agregar Contrato</a>
 
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered ">
             <thead class="table-dark">
                 <tr class="text-center">
                     <th>Número de Contrato</th>
@@ -35,6 +41,8 @@
             <a href="#" class="btn btn-primary btn-sm mostrar-contrato"
             data-numero-contrato="{{ $contrato->contract_number }}"
             data-nombre-cliente="{{ $contrato->client ? $contrato->client->name : 'Cliente no encontrado' }}"
+            data-created-at="{{ $contrato->created_at->format('Y-m-d H:i:s') }}"
+            data-servicios="{{ json_encode($contrato->services) }}"
             data-toggle="modal"
             data-target="#mostrarContratoModal">Mostrar</a>
 
@@ -101,6 +109,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -119,45 +129,57 @@
         });
     });
     </script>
-     <script>
-        $(document).ready(function() {
-            // Mostrar Contrato Modal
-            $('.mostrar-contrato').on('click', function() {
-                var numeroContrato = $(this).data('numero-contrato');
-                var nombreCliente = $(this).data('nombre-cliente');
-                $('#modal-numero-contrato').text(numeroContrato);
-                $('#modal-nombre-cliente').text(nombreCliente);
-                $('#mostrarContratoModal').modal('show');
-            });
 
-            // Resto del código...
+<script>
+    $(document).ready(function() {
+        $('.mostrar-contrato').on('click', function() {
+            var numeroContrato = $(this).data('numero-contrato');
+            var nombreCliente = $(this).data('nombre-cliente');
+            var createdAt = $(this).data('created-at');
+            var servicios = $(this).data('servicios');
+            var formattedDate = moment(createdAt).format('DD/MM/YYYY');
+
+            $('#modal-numero-contrato').text(numeroContrato);
+            $('#modal-nombre-cliente').text(nombreCliente);
+            $('#modal-created-at').text(formattedDate); 
+            $('#modal-servicios').empty();
+            for (var i = 0; i < servicios.length; i++) {
+                $('#modal-servicios').append('<p>' + servicios[i].name + '</p>');
+            }
+('#mostrarContratoModal').modal('show');
         });
-    </script>
+    });
+</script>
+            $
 
- <!-- Mostrar Contrato Modal -->
- <div class="modal fade" id="mostrarContratoModal" tabindex="-1" role="dialog" aria-labelledby="mostrarContratoModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mostrarContratoModalLabel">Detalles del Contrato</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong></strong> <span id="modal-numero-contrato"></span></p>
-                        <p><strong>fecha de creacion:</strong> <span id="modal-numero-contrato"></span></p>
-                        <p><strong>Nombre del Cliente:</strong> <span id="modal-nombre-cliente"></span></p>
-                        <p><strong>Nombre del Cliente:</strong> <span id="modal-nombre-cliente"></span></p>
+    <!-- Modal para mostrar  -->
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+<div class="modal fade" id="mostrarContratoModal" tabindex="-1" role="dialog" aria-labelledby="mostrarContratoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mostrarContratoModalLabel">Detalles del Contrato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
+            <div class="modal-body">
+                <p><strong> <span id="modal-numero-contrato"></span></strong></p>
+                <p><strong>Creación:</strong> <span id="modal-created-at"></span></p> 
+                <p><strong>Cliente:</strong> <span id="modal-nombre-cliente"></span></p>
+                <p><strong>Servicios:</strong> <div id="modal-servicios"></div></p>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    <!-- Modal para editar  -->
 <div class="modal fade" id="editarContratoModal" tabindex="-1" role="dialog" aria-labelledby="editarContratoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -208,12 +230,8 @@
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
     </div>
-</form>
-
-    </div>
+</form> 
 </div>
-
-
 
 </body>
 </html>

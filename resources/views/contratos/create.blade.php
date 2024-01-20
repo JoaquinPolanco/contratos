@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Contrato</title>
-    <!-- Agrega aquí tus enlaces a CSS y otros recursos si los tienes -->
+    <link rel="icon" href="{{ asset('img/fb.jpg') }}" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -65,6 +65,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Crear Contrato</button>
+                            <a href="/" class="btn btn-primary">Regresar a contratos</a>
                         </form>
                     </div>
                 </div>

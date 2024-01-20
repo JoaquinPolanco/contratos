@@ -15,10 +15,8 @@ use App\Http\Controllers\ContratoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/contratos', 'ContratoController@index')->name('contratos.index');
+
+Route::get('/', [ContratoController::class, 'index'])->name('contratos.index');
 Route::get('/contratos/paginate', 'ContratoController@paginate')->name('contratos.paginate');
 Route::get('contratos/{id}/edit', 'ContratoController@edit');
 Route::put('/contratos/{contrato}', 'ContratoController@update')->name('contratos.update');
