@@ -30,12 +30,13 @@
                                     <input type="text" class="form-control" name="user_id" required>
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <div class="form-check mt-4">
-                                        <input type="checkbox" name="revised" class="form-check-input">
-                                        <label class="form-check-label" for="revised">Revisado</label>
-                                    </div>
-                                </div>
+                                <div class="form-group">
+                                <label for="revised">Revisado:</label>
+                                <select name="revised" id="revised" class="form-control" required>
+                                    <option value="1" >Revisado</option>
+                                    <option value="0" >No Revisado</option>
+                                </select>
+                            </div>
 
                                 <div class="form-group col-md-4">
                                     <label for="location">Ubicación:</label>
