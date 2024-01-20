@@ -9,11 +9,9 @@ use App\Models\ClientContract;
 use App\Models\ContractService;
 use App\Models\CategoriesService;
 
-
 class ContratoController extends Controller
 {
     
-
     public function index()
     {
         $contratos = Contract::paginate(50);
@@ -23,7 +21,7 @@ class ContratoController extends Controller
     public function create()
     {
         $locations = Location::all();
-        $services = CategoriesService::all(); // Corregido el nombre aquí
+        $services = CategoriesService::all(); 
         return view('contratos.create', compact('locations', 'services'));
     }
 
@@ -55,7 +53,7 @@ class ContratoController extends Controller
 
         $contractServiceData = [
             'contract' => $contract->id,
-            'service' => $request->input('service_id'),  // Asegúrate de usar 'service_id'
+            'service' => $request->input('service_id'),  
             
         ];
 
@@ -68,7 +66,33 @@ class ContratoController extends Controller
     {
         $contratos = Contract::paginate(50);
         return view('contratos.paginate', compact('contratos'));
+
     }
+
+    public function edit($id)
+    {
+        $contrato = Contract::findOrFail($id);
+        $locations = Location::all();
+    
+        return view('contratos.edit', compact('contrato', 'locations'))->render();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'contract_number' => 'required|unique:contract,contract_number,' . $id,
+            'user_id' => 'required|numeric',
+            'revised' => 'required|in:1,0',  
+            'location' => 'required|numeric',
+            'principal' => 'required|boolean', 
+        ]);
+    
+        $contract = Contract::findOrFail($id);
+        $contract->update($request->all());
+    
+        return redirect()->route('contratos.index')->with('success', 'Contrato actualizado exitosamente');
+    }
+    
 
     
 }

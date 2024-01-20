@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContractService extends Model
 {
     protected $table = 'contract_service';
-    public $timestamps = false; // Desactiva las marcas de tiempo
+    public $timestamps = false; 
 
     protected $fillable = [
         'contract', 

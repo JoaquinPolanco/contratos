@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 class ClientContract extends Model
 {
     protected $table = 'client_contract';
-    public $timestamps = false; // Desactiva las marcas de tiempo
+    public $timestamps = false; 
     
     protected $fillable = [
         'contract',
         'client',
         'principal',
-        // Otros campos que necesites
+     
     ];
     
     public function contract()

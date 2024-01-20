@@ -8,19 +8,19 @@ class Contract extends Model
 {
     protected $table = 'contract';
     
-    const UPDATED_AT = null; // Desactiva el campo updated_at
+    const UPDATED_AT = null; 
 
     protected $fillable = [
-        'contract_number', // Agrega el campo 'contract_number' a $fillable
+        'contract_number', 
         'user_id',
         'revised',
         'location',
-        // Otros campos que deseas permitir en asignación masiva
+       
     ];
 
     public function services()
     {
-        return $this->belongsToMany(CategoriesService::class, 'contract_services', 'contract_number', 'service');
+        return $this->belongsToMany(CategoriesService::class, 'contract_service', 'contract', 'service');
     }
 
     public function client()

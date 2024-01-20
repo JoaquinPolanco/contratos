@@ -20,6 +20,8 @@ Route::get('/', function () {
 });
 Route::get('/contratos', 'ContratoController@index')->name('contratos.index');
 Route::get('/contratos/paginate', 'ContratoController@paginate')->name('contratos.paginate');
+Route::get('contratos/{id}/edit', 'ContratoController@edit');
+Route::put('/contratos/{contrato}', 'ContratoController@update')->name('contratos.update');
 
 
 Route::resource('contratos', ContratoController::class);
