@@ -42,7 +42,7 @@
                                     <label for="location">Ubicación:</label>
                                     <select name="location" class="form-control" required>
                                         @foreach($locations as $location)
-                                            <option value="{{ $location->id }}">{{ $location->id}}</option>
+                                            <option value="{{ $location->id }}">{{ $location->location}}</option>
                                         @endforeach
                                     </select>
                                 </div>
